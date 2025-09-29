@@ -161,6 +161,7 @@ function parseblock!(block::Expr, exprs::Vector, method::Symbol, typ::Union{Symb
                 key = getkey(fn)
                 # Then make sure its a call to |
                 expr = line.args[2]
+                !hasfield(typeof(expr), :head) && continue
                 if expr.head == :call && expr.args[1] == :(|)
                     process_equals_line!(exprs, line, expr, key, method, typ, checktyp)
                 end
