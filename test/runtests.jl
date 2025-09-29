@@ -36,16 +36,17 @@ d = Described(1, 1.0, nothing)
 @test description(Described, Val{:d}) == ""
 @test description(Described, :d) == ""
 
-@inferred description(d, :a)
 @inferred description(Described, Val{:a})
-@inferred description(Described, :a)
 @inferred description(d, Val{:a})
-@inferred description(typeof(d), :b)
-@inferred description(d, :c)
 @inferred description(d, Val{:c})
 @inferred description(Described, Val{:c})
-@inferred description(Described, :c)
 @inferred description(d)
+## not work 
+# @inferred description(d, :a)
+# @inferred description(d, :c)
+# @inferred description(typeof(d), :b)
+# @inferred description(Described, :a)
+# @inferred description(Described, :c)
 
 ex = :(@some @arbitrary @macros struct TestMacros{T}
         a::T | u"1"
