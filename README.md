@@ -1,7 +1,7 @@
 # FieldMetadata
 
-[![Build Status](https://travis-ci.org/rafaqz/FieldMetadata.jl.svg?branch=master)](https://travis-ci.org/rafaqz/FieldMetadata.jl)
-[![codecov.io](http://codecov.io/github/rafaqz/FieldMetadata.jl/coverage.svg?branch=master)](http://codecov.io/github/rafaqz/FieldMetadata.jl?branch=master)
+[![CI](https://github.com/kongdd/FieldMetadata.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/kongdd/FieldMetadata.jl/actions/workflows/CI.yml)
+[![codecov](https://codecov.io/gh/kongdd/FieldMetadata.jl/graph/badge.svg)](https://codecov.io/gh/kongdd/FieldMetadata.jl/tree/master/src)
 
 This package lets you define metadata about fields in a struct, like tags
 in Go. It uses a similar syntax to Parameters.jl, with a `|` bar instead of `=`.
@@ -64,7 +64,10 @@ FieldMetadata.jl v0.2, macros are written in the same order as the metadata
 columns, as opposed to the opposite order which was the syntax in v0.1
 
 However, @with_kw from Parameters.jl must be the last macro and the first field, 
-if it is used. Additionally, any field with a default value must also have a metadata
+if it is used. 
+
+<!-- 
+Additionally, any field with a default value must also have a metadata
 annotation. If you assign a default value but no metadata to any
 field, it will raise a `LoadError` with a message `type XXX has no field head`.
 You can use the default value by adding `_` as an annotation, e.g.
@@ -73,7 +76,8 @@ You can use the default value by adding `_` as an annotation, e.g.
     a::T = 0 | _  # omitting the `| _` will cause an errow
     b::T = 0 | (0, 1)
 end
-```
+``` 
+-->
 
 
 You can also update or add fields on a type that is already declared using a
@@ -114,19 +118,19 @@ julia> describe(d)
 FieldMetadata provides an api of some simple metadata tags to be used across
 packages: 
 
-| Metadata    | Default     | Type           | Use case                                        |
-| ----------- | ----------- | -------------- | ----------------------------------------------- |
-| default     | nothing     | Any            | Default values (see FieldDefaults.jl)           |
-| units       | 1           | Any            | Unitful.jl unit                                 |
-| prior       | nothing     | Any            | Prior probability distributions                 |
-| label       | ""          | AbstractString | Short labels                                    |
-| description | ""          | AbstractString | Complete descriptions                           |
-| bounds      | (0.0, 1.0)  | Tuple          | Upper and lower bounds in optimisers            |
-| limits      | (0.0, 1.0)  | Tuple          | Legacy - use `bounds`                           |
-| logscaled   | false       | Bool           | For log sliders or log plots                    |
-| flattenable | true        | Bool           | For flattening structs with Flatten.jl          |
-| plottable   | true        | Bool           | For finding plottable content in nested structs |
-| selectable  | Nothing     | Bool           | Supertypes to select child constructors from    |
+| Metadata    | Default    | Type   | Use case                                        |
+| ----------- | ---------- | ------ | ----------------------------------------------- |
+| default     | nothing    | Any    | Default values (see FieldDefaults.jl)           |
+| units       | 1          | Any    | Unitful.jl unit                                 |
+| prior       | nothing    | Any    | Prior probability distributions                 |
+| label       | ""         | String | Short labels                                    |
+| description | ""         | String | Complete descriptions                           |
+| bounds      | (0.0, 1.0) | Tuple  | Upper and lower bounds in optimisers            |
+| limits      | (0.0, 1.0) | Tuple  | Legacy - use `bounds`                           |
+| logscaled   | false      | Bool   | For log sliders or log plots                    |
+| flattenable | true       | Bool   | For flattening structs with Flatten.jl          |
+| plottable   | true       | Bool   | For finding plottable content in nested structs |
+| selectable  | Nothing    | Bool   | Supertypes to select child constructors from    |
 
 To use them, call:
 

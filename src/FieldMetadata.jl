@@ -83,14 +83,15 @@ macro chain(name, ex)
     macros = reverse(chained_macros(ex))
     return quote
         macro $(esc(name))(ex)
+            # Use the original call site line/file info for every wrapped macro
             for mac in $macros
-                ex = Expr(:macrocall, mac, LineNumberNode(80, "FieldMetadata.jl"), ex)
+                ex = Expr(:macrocall, mac, @__LINE__, ex)
             end
             esc(ex)
         end
         macro $(esc(name))(typ, ex)
             for mac in $macros
-                ex = Expr(:macrocall, mac, LineNumberNode(87, "FieldMetadata.jl"), typ, ex)
+                ex = Expr(:macrocall, mac, @__LINE__, typ, ex)
             end
             esc(ex)
         end

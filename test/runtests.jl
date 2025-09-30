@@ -4,6 +4,8 @@ abstract type AbstractTest end
 
 import FieldMetadata: @description, description, MetadataError
 
+include("test-Parameters.jl")
+
 @description mutable struct Described{P}
    a::Int | "an Int"
    b      | "an untyped field"
