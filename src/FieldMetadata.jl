@@ -52,11 +52,11 @@ macro metadata(name, default, checktyp=Any)
         end
 
         # Single field methods
-        @inline $name(x, key) = $default
-        @inline $name(x::Type, key::Type) = $default
-        @inline $name(::X, key::Symbol) where X = $name(X, Val{key})
-        @inline $name(::X, key::Type) where X = $name(X, key)
-        @inline $name(::Type{X}, key::Symbol) where X = $name(X, Val{key})
+        @inline $name(x, key) = ($default::$checktyp)
+        @inline $name(x::Type, key::Type) = ($default::$checktyp)
+        @inline $name(::X, key::Symbol) where X = ($name(X, Val{key})::$checktyp)
+        @inline $name(::X, key::Type) where X = ($name(X, key)::$checktyp)
+        @inline $name(::Type{X}, key::Symbol) where X = ($name(X, Val{key})::$checktyp)
 
         # All field methods
         @inline $name(::X) where X = $name(X)
@@ -262,8 +262,8 @@ namify(x::Expr) = namify(x.args[1])
 @metadata default nothing
 @metadata units 1
 @metadata prior nothing
-@metadata label "" AbstractString 
-@metadata description "" AbstractString 
+@metadata label "" String 
+@metadata description "" String 
 @metadata limits (0.0, 1.0) Tuple
 @metadata bounds (0.0, 1.0) Tuple
 @metadata logscaled false Bool
