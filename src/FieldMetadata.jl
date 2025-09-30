@@ -16,7 +16,7 @@ Generate a macro that constructs methods of the same name.
 These methods return the metadata information provided for each
 field of the struct.
 
-If no method is definjed for a type or field, the default value 
+If no method is defined for a type or field, the default value 
 is used. If a type is passed to the macro, the type of metadata will be checked 
 when it is loaded with the method. The default type is `Any`.
 
@@ -143,7 +143,7 @@ function funcs_from_block(objtyp::Union{Symbol,Expr}, expr::Expr, name::Symbol, 
     if length(macros) == 0
         Expr(:block, func_exprs...)
     else
-        Expr(:block, esc(typ), esc(ex), func_exprs...)
+        Expr(:block, esc(objtyp), esc(expr), func_exprs...)
     end
 end
 
@@ -226,7 +226,7 @@ end
 
 # Field could be just the name `a`
 getkey(ex::Symbol) = ex
-# Or the name and type `a::T`, or somethng else
+# Or the name and type `a::T`, or something else
 getkey(ex::Expr) = firsthead(y -> y.args[1], ex, :(::))
 
 chained_macros(ex) = chained_macros!(Symbol[], ex)
